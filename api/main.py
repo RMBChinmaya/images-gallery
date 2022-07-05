@@ -4,7 +4,8 @@ from flask import Flask, request
 from dotenv import load_dotenv
 from flask_cors import CORS
 
-load_dotenv(dotenv_path=".\\.env.local")
+load_dotenv(dotenv_path="./.env.local")
+# load_dotenv(dotenv_path=".\\.env.local")  # TO run on windows machine
 print()
 UNSPLASH_URL = "https://api.unsplash.com/photos/random"
 UNSPLASH_KEY = os.environ.get("UNSPLASH_KEY", "")
