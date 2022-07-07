@@ -8,8 +8,8 @@ services:
     volumes:
       - /app/node_modules
       - ./frontend:/app
-    # environment:
-    #   - CHOKIDAR_USEPOLLING=True #Use this when mapping does not sync with docker files
+    environment:
+      - CHOKIDAR_USEPOLLING=True #Use this when mapping does not sync with docker files
   api:
     restart: always
     build: ./api
