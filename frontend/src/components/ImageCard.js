@@ -7,7 +7,7 @@ const ImageCard = ({ image, deleteImage }) => {
       <Card.Img variant="top" src={image.urls.small || 'No Image available'} />
       <Card.Body>
         <Card.Title>
-          {image.title.toUpperCase() || 'No Image available'}
+          {image.title?.toUpperCase() || 'No Title Available'}
         </Card.Title>
         <Card.Text>
           {image.description || image.alt_description || 'No Desc available'}
