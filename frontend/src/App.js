@@ -7,6 +7,8 @@ import ImageCard from './components/ImageCard';
 import Welcome from './components/Welcome';
 import Spinner from './components/Spinner';
 import { Container, Row, Col } from 'react-bootstrap';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://192.168.0.23:5050';
 
@@ -30,8 +32,10 @@ const App = () => {
         const res = await axios.get(`${API_URL}/images`);
         setImages(res.data || []);
         setLoading(false);
+        toast.success('Saved images downloaded');
       } catch (error) {
         console.log(error);
+        toast.error(error.message);
       }
     })();
   }, []);
@@ -42,8 +46,10 @@ const App = () => {
     try {
       const res = await axios.get(`${API_URL}/new-image?query=${word}`);
       setImages([{ ...res.data, title: word }, ...images]);
+      toast.info(`New image for ${word?.toUpperCase()} was found`);
     } catch (error) {
       console.log(error);
+      toast.error(error.message);
     }
 
     setWord('');
@@ -54,10 +60,16 @@ const App = () => {
     try {
       const res = await axios.delete(`${API_URL}/images/${id}`);
       if (res.data?.deleted_id) {
+        toast.warning(
+          `Image for ${images
+            .find((i) => i.id === id)
+            .title.toUpperCase()} was deleted`
+        );
         setImages(images.filter((image) => image.id !== id));
       }
     } catch (error) {
       console.log(error);
+      toast.error(error.message);
     }
   };
 
@@ -72,9 +84,11 @@ const App = () => {
             image.id === id ? { ...image, saved: true } : image
           )
         );
+        toast.info(`Image for ${imageToBeSaved.title.toUpperCase()} was saved`);
       }
     } catch (error) {
       console.log(error);
+      toast.error(error.message);
     }
   };
 
@@ -109,6 +123,7 @@ const App = () => {
           </Container>
         </>
       )}
+      <ToastContainer position="bottom-right" />
     </div>
   );
 };

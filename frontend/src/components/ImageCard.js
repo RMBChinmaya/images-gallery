@@ -25,11 +25,11 @@ const ImageCard = ({ image, deleteImage, saveImage }) => {
       </Card.Body>
       <Card.Footer className="text-center text-muted">
         {authorPortfolioURL && (
-          <Nav.Link href="authorPortfolioURL" target="_blank">
-            {!authorPortfolioURL && authorName}
+          <Nav.Link href={authorPortfolioURL} target="_blank">
+            {authorName}
           </Nav.Link>
         )}
-        {authorName}
+        {!authorPortfolioURL && authorName}
       </Card.Footer>
     </Card>
   );
